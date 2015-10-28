@@ -1,0 +1,125 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AccountGender.FEMALE	gameConst.js	/^    MALE:0,$/;"	p
+AccountGender.MALE	gameConst.js	/^var AccountGender = {$/;"	p
+AccountGender.UNKNOWN	gameConst.js	/^    FEMALE:1,$/;"	p
+AccountOperate.LOGIN	gameConst.js	/^var AccountOperate = {$/;"	p
+AccountOperate.LOGOUT	gameConst.js	/^    LOGIN:0,$/;"	p
+AccountOperate.REGISTER	gameConst.js	/^    LOGOUT:1,$/;"	p
+AccountType.ANONYMOUS	gameConst.js	/^var AccountType = {$/;"	p
+AccountType.ND91	gameConst.js	/^    QQ_WEIBO:5,$/;"	p
+AccountType.QQ	gameConst.js	/^    TENCENT_WEIBO:3,$/;"	p
+AccountType.QQ_WEIBO	gameConst.js	/^    QQ:4,$/;"	p
+AccountType.REGISTED	gameConst.js	/^    ANONYMOUS:0,$/;"	p
+AccountType.SINA_WEIBO	gameConst.js	/^    REGISTED:1,$/;"	p
+AccountType.TENCENT_WEIBO	gameConst.js	/^    SINA_WEIBO:2,$/;"	p
+AdsPos.kPosBottom	gameConst.js	/^    kPosTopRight:3,			\/**< enum the toolbar is at topright. *\/$/;"	p
+AdsPos.kPosBottomLeft	gameConst.js	/^    kPosBottom:4,				\/**< enum the toolbar is at bottom. *\/$/;"	p
+AdsPos.kPosBottomRight	gameConst.js	/^    kPosBottomLeft:5,			\/**< enum the toolbar is at bottomleft. *\/$/;"	p
+AdsPos.kPosCenter	gameConst.js	/^var AdsPos = {$/;"	p
+AdsPos.kPosTop	gameConst.js	/^    kPosCenter:0,			\/**< enum the toolbar is at center. *\/$/;"	p
+AdsPos.kPosTopLeft	gameConst.js	/^    kPosTop:1,				\/**< enum the toolbar is at top. *\/$/;"	p
+AdsPos.kPosTopRight	gameConst.js	/^    kPosTopLeft:2,			\/**< enum the toolbar is at topleft. *\/$/;"	p
+AdsResultCode.kAdsDismissed	gameConst.js	/^    kAdsShown:1,                  \/**< enum the callback: the advertisement dismissed. *\/$/;"	p
+AdsResultCode.kAdsReceived	gameConst.js	/^var AdsResultCode = {$/;"	p
+AdsResultCode.kAdsShown	gameConst.js	/^    kAdsReceived:0,           	\/**< enum the callback: the ad is received is at center. *\/$/;"	p
+AdsResultCode.kNetworkError	gameConst.js	/^    kPointsSpendFailed:4,        \/**< enum the callback: the points spend failed. *\/$/;"	p
+AdsResultCode.kOfferWallOnPointsChanged	gameConst.js	/^    kUnknownError:6,              \/**< enum the callback of Unknown error. *\/$/;"	p
+AdsResultCode.kPointsSpendFailed	gameConst.js	/^    kPointsSpendSucceed:3,       \/**< enum the callback: the points spend succeed. *\/$/;"	p
+AdsResultCode.kPointsSpendSucceed	gameConst.js	/^    kAdsDismissed:2,             \/**< enum the callback: the advertisement dismissed. *\/$/;"	p
+AdsResultCode.kUnknownError	gameConst.js	/^    kNetworkError:5,              \/**< enum the callback of Network error at center. *\/$/;"	p
+AdsType.AD_TYPE_BANNER	gameConst.js	/^var AdsType = {$/;"	p
+AdsType.AD_TYPE_FULLSCREEN	gameConst.js	/^	AD_TYPE_BANNER:0,		\/**< enum value is banner ads . *\/$/;"	p
+AdsType.AD_TYPE_MOREAPP	gameConst.js	/^	AD_TYPE_FULLSCREEN:1,	\/**< enum value is fullscreen ads . *\/$/;"	p
+AdsType.AD_TYPE_OFFERWALL	gameConst.js	/^	AD_TYPE_MOREAPP:2,		\/**< enum value is moreapp ads . *\/$/;"	p
+GameActionTYPES.EXIT	gameConst.js	/^GameActionTYPES={$/;"	p
+HelloWorldLayer	app.js	/^var HelloWorldLayer = cc.Layer.extend({$/;"	v
+HelloWorldScene	app.js	/^var HelloWorldScene = cc.Scene.extend({$/;"	v
+LoginActionTYPES.BAIDU	gameConst.js	/^    LIEBAO:103,$/;"	p
+LoginActionTYPES.DIRECT	gameConst.js	/^LoginActionTYPES={$/;"	p
+LoginActionTYPES.LIEBAO	gameConst.js	/^    WECHAT:102,$/;"	p
+LoginActionTYPES.LOGOUT	gameConst.js	/^    WANBA:105,$/;"	p
+LoginActionTYPES.QQ	gameConst.js	/^    DIRECT:100,$/;"	p
+LoginActionTYPES.WANBA	gameConst.js	/^    BAIDU:104,$/;"	p
+LoginActionTYPES.WECHAT	gameConst.js	/^    QQ:101,$/;"	p
+LoginScene	LoginScene.js	/^var LoginScene = cc.Scene.extend({$/;"	v
+PayResultCode.kPayCancel	gameConst.js	/^    kPayFail:1,			\/**< enum value is callback of failing to pay . *\/$/;"	p
+PayResultCode.kPayFail	gameConst.js	/^    kPaySuccess:0,		\/**< enum value is callback of succeeding in paying . *\/$/;"	p
+PayResultCode.kPayInitFail	gameConst.js	/^	kPayInitSuccess:5,	\/**< enum value is callback of succeeding in initing sdk . *\/$/;"	p
+PayResultCode.kPayInitSuccess	gameConst.js	/^    kPayProductionInforIncomplete:4,	\/**< enum value is callback of incompleting info . *\/$/;"	p
+PayResultCode.kPayNeedLoginAgain	gameConst.js	/^    kPayRechareSuccess:8,\/**< enum value is callback of  succeeding in recharging. *\/$/;"	p
+PayResultCode.kPayNetworkError	gameConst.js	/^    kPayCancel:2,		\/**< enum value is callback of canceling to pay . *\/$/;"	p
+PayResultCode.kPayNowPaying	gameConst.js	/^	kPayInitFail:6,		\/**< enum value is callback of failing to init sdk . *\/$/;"	p
+PayResultCode.kPayProductionInforIncomplete	gameConst.js	/^    kPayNetworkError:3,	\/**< enum value is callback of network error . *\/$/;"	p
+PayResultCode.kPayRechareSuccess	gameConst.js	/^	kPayNowPaying:7, 	\/**< enum value is callback of paying now . *\/$/;"	p
+PayResultCode.kPaySuccess	gameConst.js	/^var PayResultCode = {$/;"	p
+PluginManager	PluginManager.js	/^var PluginManager = cc.Class.extend({$/;"	v
+Plugin_type.kPluginAds	gameConst.js	/^var Plugin_type = {$/;"	p
+Plugin_type.kPluginAnalytics	gameConst.js	/^    kPluginAds:1,$/;"	p
+Plugin_type.kPluginIAP	gameConst.js	/^    kPluginAnalytics:2,$/;"	p
+Plugin_type.kPluginPush	gameConst.js	/^    kPluginSocial:6,$/;"	p
+Plugin_type.kPluginShare	gameConst.js	/^    kPluginIAP:3,$/;"	p
+Plugin_type.kPluginSocial	gameConst.js	/^    kPluginUser:5,$/;"	p
+Plugin_type.kPluginUser	gameConst.js	/^    kPluginShare:4,$/;"	p
+PushActionResultCode.kPushReceiveMessage	gameConst.js	/^var PushActionResultCode = {$/;"	p
+RUNTIME_ENV.BAIDU	gameConst.js	/^    LIEBAO:"liebao_mode",$/;"	p
+RUNTIME_ENV.LIEBAO	gameConst.js	/^    TENCENT:"tencent_mode",$/;"	p
+RUNTIME_ENV.SIMULATE	gameConst.js	/^RUNTIME_ENV ={$/;"	p
+RUNTIME_ENV.TENCENT	gameConst.js	/^    SIMULATE: "simulator_mode",$/;"	p
+RUNTIME_ENV.WANBA	gameConst.js	/^    BAIDU:"baidu_mode",$/;"	p
+ShareResultCode.kShareCancel	gameConst.js	/^    kShareFail:1,		\/**< enum value is callback of failing to share . *\/$/;"	p
+ShareResultCode.kShareFail	gameConst.js	/^    kShareSuccess:0,	\/**< enum value is callback of failing to sharing . *\/$/;"	p
+ShareResultCode.kShareNetworkError	gameConst.js	/^    kShareCancel:2,		\/**< enum value is callback of canceling to share . *\/$/;"	p
+ShareResultCode.kShareSuccess	gameConst.js	/^var ShareResultCode = {$/;"	p
+SocialRetCode.kAchUnlockFail	gameConst.js	/^    kAchUnlockSucceed:3,		\/**< enum value is callback of succeeding in unlocking. *\/$/;"	p
+SocialRetCode.kAchUnlockSucceed	gameConst.js	/^    kScoreSubmitfail:2,			\/**< enum value is callback of failing to submit . *\/$/;"	p
+SocialRetCode.kScoreSubmitSucceed	gameConst.js	/^var SocialRetCode = {$/;"	p
+SocialRetCode.kScoreSubmitfail	gameConst.js	/^	kScoreSubmitSucceed:1,		\/**< enum value is callback of succeeding in submiting. *\/$/;"	p
+SocialRetCode.kSocialGetFriendsInfoSuccess	gameConst.js	/^    kSocialSignOutFail:8,		\/**< enum value is callback of failing to  login. *\/$/;"	p
+SocialRetCode.kSocialSignInFail	gameConst.js	/^    kSocialSignInSucceed:5,		\/**< enum value is callback of succeeding to login. *\/$/;"	p
+SocialRetCode.kSocialSignInSucceed	gameConst.js	/^    kAchUnlockFail:4,			\/**< enum value is callback of failing to  unlock. *\/$/;"	p
+SocialRetCode.kSocialSignOutFail	gameConst.js	/^    kSocialSignOutSucceed:7,	\/**< enum value is callback of succeeding to login. *\/$/;"	p
+SocialRetCode.kSocialSignOutSucceed	gameConst.js	/^    kSocialSignInFail:6,		\/**< enum value is callback of failing to  login. *\/$/;"	p
+TaskType.ACTIVITY	gameConst.js	/^    DAILY:3,$/;"	p
+TaskType.BRANCH_LINE	gameConst.js	/^    MAIN_LINE:1,$/;"	p
+TaskType.DAILY	gameConst.js	/^    BRANCH_LINE:2,$/;"	p
+TaskType.GUIDE_LINE	gameConst.js	/^var TaskType = {$/;"	p
+TaskType.MAIN_LINE	gameConst.js	/^    GUIDE_LINE:0,$/;"	p
+TaskType.OTHER	gameConst.js	/^    ACTIVITY:4,$/;"	p
+ToolBarPlace.kToolBarBottomLeft	gameConst.js	/^    kToolBarMidRight:4,		\/**< enum the toolbar is at midright. *\/$/;"	p
+ToolBarPlace.kToolBarBottomRight	gameConst.js	/^    kToolBarBottomLeft:5,	\/**< enum the toolbar is at bottomleft. *\/$/;"	p
+ToolBarPlace.kToolBarMidLeft	gameConst.js	/^    kToolBarTopRight:2,		\/**< enum the toolbar is at topright. *\/$/;"	p
+ToolBarPlace.kToolBarMidRight	gameConst.js	/^    kToolBarMidLeft:3,		\/**< enum the toolbar is at midleft. *\/$/;"	p
+ToolBarPlace.kToolBarTopLeft	gameConst.js	/^var ToolBarPlace = {$/;"	p
+ToolBarPlace.kToolBarTopRight	gameConst.js	/^    kToolBarTopLeft:1,		\/**< enum the toolbar is at topleft. *\/$/;"	p
+UserActionResultCode.kAccountSwitchFail	gameConst.js	/^    kAccountSwitchSuccess:15,	\/**< enum alue is callback of succeeding in switching account. *\/$/;"	p
+UserActionResultCode.kAccountSwitchSuccess	gameConst.js	/^    kRealNameRegister:14,	\/**< enum value is callback after registering realname. *\/$/;"	p
+UserActionResultCode.kAntiAddictionQuery	gameConst.js	/^    kExitPage:12,		\/**< enum value is callback after exit exit page. *\/$/;"	p
+UserActionResultCode.kExitPage	gameConst.js	/^    kPausePage:11,		\/**< enum value is callback after exit pause page. *\/$/;"	p
+UserActionResultCode.kInitFail	gameConst.js	/^	kInitSuccess:0,		\/**< enum value is callback of succeeding in initing sdk. *\/$/;"	p
+UserActionResultCode.kInitSuccess	gameConst.js	/^var UserActionResultCode = {$/;"	p
+UserActionResultCode.kLoginCancel	gameConst.js	/^    kLoginFail:5,		\/**< enum value is callback of failing to login. *\/$/;"	p
+UserActionResultCode.kLoginFail	gameConst.js	/^    kLoginNoNeed:4,		\/**< enum value is callback of no need login.*\/$/;"	p
+UserActionResultCode.kLoginNetworkError	gameConst.js	/^    kLoginSuccess:2,	\/**< enum value is callback of succeeding in login.*\/$/;"	p
+UserActionResultCode.kLoginNoNeed	gameConst.js	/^    kLoginNetworkError:3,	\/**< enum value is callback of network error*\/$/;"	p
+UserActionResultCode.kLoginSuccess	gameConst.js	/^	kInitFail:1,		\/**< enum  value is callback of failing to init sdk. *\/$/;"	p
+UserActionResultCode.kLogoutFail	gameConst.js	/^    kLogoutSuccess:7,	\/**< enum value is callback of succeeding in logout. *\/$/;"	p
+UserActionResultCode.kLogoutSuccess	gameConst.js	/^    kLoginCancel:6,		\/**< enum value is callback of canceling to login. *\/$/;"	p
+UserActionResultCode.kOpenShop	gameConst.js	/^    kAccountSwitchFail:16,	\/**< enum value is callback of failing to switch account. *\/$/;"	p
+UserActionResultCode.kPausePage	gameConst.js	/^    kPlatformBack:10,	\/**< enum value is callback after exit antiAddiction. *\/$/;"	p
+UserActionResultCode.kPlatformBack	gameConst.js	/^    kPlatformEnter:9,	\/**< enum value is callback after enter platform. *\/$/;"	p
+UserActionResultCode.kPlatformEnter	gameConst.js	/^    kLogoutFail:8,		\/**< enum value is callback of failing to logout. *\/$/;"	p
+UserActionResultCode.kRealNameRegister	gameConst.js	/^    kAntiAddictionQuery:13,	\/**< enum value is callback after querying antiAddiction. *\/$/;"	p
+UserActionResultCode.kRefreshTokenSuccess	gameConst.js	/^    kOpenShop:17,             \/**< enum value is callback of open the shop. *\/$/;"	p
+cc.stevelog	utils.js	/^\/**$/;"	f
+g_resources	resource.js	/^var g_resources = [];$/;"	v
+gameLayer1	gameScene1.js	/^var gameLayer1 = cc.Layer.extend({$/;"	v
+gameLayer2	gameScene2.js	/^var gameLayer2 = cc.Layer.extend({$/;"	v
+gameScene1	gameScene1.js	/^var gameScene1 = cc.Scene.extend({$/;"	v
+gameScene2	gameScene2.js	/^var gameScene2 = cc.Scene.extend({$/;"	v
+res.HelloWorld_png	resource.js	/^var res = {$/;"	p
+var.pluginManager	PluginManager.js	/^    var pluginManager = function () {$/;"	f
