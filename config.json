@@ -1,0 +1,20 @@
+{
+    "game_name": "helloRuntime",
+    "package_name": "com.helloRuntime.www",
+    "version_name": "1.0.0",
+    "version_code": 1,
+    "runtime_version": "3.3.0.2",
+    "description": "尝试接入runtimeSDK",
+    "orientation": "landscape",
+    "entry_file": "main.js",
+    "game_type":"offline",
+    "design_resolution": {
+        "width": 800,
+        "height": 450,
+        "policy": "SHOW_ALL"
+    },
+    "security": {
+        "third_party":{},
+        "password":"unittest"
+    }
+}
