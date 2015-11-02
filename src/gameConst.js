@@ -12,6 +12,15 @@ LoginActionTYPES={
     LOGOUT:106
 };
 
+SDKFunctionTYPES={
+    PAY:100,
+    SHARE:101,
+    SEND_TO_DESKTOP:102,
+    FRIENDS:103,
+    FORUM:104,
+    ADS:105
+};
+
 GameActionTYPES={
     EXIT:100
 };

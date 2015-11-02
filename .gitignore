@@ -5,3 +5,4 @@ frameworks/
 
 #
 *.swp
+.crt_rc

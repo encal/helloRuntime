@@ -169,6 +169,8 @@ var LoginLayer = cc.Layer.extend({
     },
 
     wechatLogin: function () {
+        cc.stevelog("qq browser login with weChat");
+
         var appid = this.sigInfo["appid"];
         var appsig = this.sigInfo["appsig"];
         var appsigData = this.sigInfo["appsigdata"];
@@ -182,7 +184,15 @@ var LoginLayer = cc.Layer.extend({
     },
 
     qZoneAutoLogin: function () {
-        cc.stevelog("")
+        cc.stevelog("qZoneAutoLogin");
+
+        var param = {
+            "appid": "1",   //这几个参数可以随意传，但是不能为空
+            "appsig": "2",
+            "loginType": "wx",
+            "appsigData": "3"
+        };
+        pluginManager.login(param, this.loginCallback.bind(this));
     },
 
     liebaoLogin: function () {
@@ -190,16 +200,19 @@ var LoginLayer = cc.Layer.extend({
 
         var liebaoToken = cc.sys.localStorage.getItem("liebaoToken");
         var token = liebaoToken ? liebaoToken : "meaninglessNotNullString";
-
         var param = {
             "token": token
         };
-
         pluginManager.login(param, this.loginCallback.bind(this));
     },
 
     baiduLogin: function () {
-        cc.stevelog("")
+        cc.stevelog("baidu login")
+        var param = {
+            "forceLogin": "false",  // 是否需要每次重新登录
+            "confirmLogin": "false" // 是否让用户选择继续使用该账号或切换账户
+        };
+        pluginManager.login(param, this.loginCallback.bind(this));
     },
 
     logout: function(sender){
@@ -209,6 +222,7 @@ var LoginLayer = cc.Layer.extend({
                 pluginManager.logout(this.loginCallback.bind(this));
                 break;
             case RUNTIME_ENV.LIEBAO:
+            case RUNTIME_ENV.BAIDU:
                 break;
         }
 
@@ -225,7 +239,11 @@ var LoginLayer = cc.Layer.extend({
         var logoutItem= new cc.MenuItemLabel( logoutLabel, this.logout, this );
         logoutItem.setTag(LoginActionTYPES.LOGOUT);
 
-        var gameEntryMenu = new cc.Menu(gameEntryItem, logoutItem);
+        if(g_env == RUNTIME_ENV.TENCENT)
+            var gameEntryMenu = new cc.Menu(gameEntryItem, logoutItem);
+        else
+            var gameEntryMenu = new cc.Menu(gameEntryItem);
+
         gameEntryMenu.setPosition( winSize.width * 3 / 4, winSize.height * 3 / 4);
         gameEntryMenu.alignItemsVerticallyWithPadding(10);
         gameEntryMenu.setTag(MenuTag.GAME_ENTRY_MENU);
@@ -314,8 +332,16 @@ var LoginLayer = cc.Layer.extend({
     },
 
     exitGame: function () {
-        cc.director.end();
-        // cc.game.exitGame();
+        switch (g_env){
+            case RUNTIME_ENV.LIEBAO:
+            case RUNTIME_ENV.BAIDU:
+                cc.stevelog("not allow game exit, please exit by sdk");
+                break;
+            default:
+                cc.director.end();
+                // cc.game.exitGame();
+                break;
+        }
     }
 });
 

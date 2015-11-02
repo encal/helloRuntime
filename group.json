@@ -1,32 +1,30 @@
 {
-    "boot": {
-        "priority": 0,
-        "files": [
-            "src/app.js",
-            "src/resource.js",
-            "src/LoginScene.js",
-            "src/gameScene1.js",
-            "src/gameScene2.js",
-            "src/gameConst.js",
-            "src/PluginManager.js",
-            "src/utils.js",
-
-            "res/HelloWorld.png",
-            "res/loading.js",
-
-            "res_engine/dialog_bg.png",
-            "res_engine/dialog_cancel_normal.png",
-            "res_engine/dialog_cancel_press.png",
-            "res_engine/dialog_confirm_normal.png",
-            "res_engine/dialog_confirm_press.png",
-            "res_engine/preload_bg.jpg",
-            "res_engine/preload_logo.png",
-            "res_engine/preload_title.png",
-            "res_engine/progress_bar.png",
-            "res_engine/progress_bg.png",
-            "res_engine/progress_light.png",
-            "res_engine/progress_shadow.png"
-
-        ]
-    }
+  "boot": {
+    "priority": 0,
+    "files": [
+      "res_engine/dialog_bg.png",
+      "res_engine/dialog_cancel_normal.png",
+      "res_engine/dialog_cancel_press.png",
+      "res_engine/dialog_confirm_normal.png",
+      "res_engine/dialog_confirm_press.png",
+      "res_engine/preload_bg.jpg",
+      "res_engine/preload_logo.png",
+      "res_engine/preload_title.png",
+      "res_engine/progress_bar.png",
+      "res_engine/progress_bg.png",
+      "res_engine/progress_light.png",
+      "res_engine/progress_shadow.png",
+      "src/LoginScene.js",
+      "src/PluginManager.js",
+      "src/app.js",
+      "src/gameConst.js",
+      "src/gameScene1.js",
+      "src/gameScene2.js",
+      "src/resource.js",
+      "src/utils.js",
+      "res/HelloWorld.png",
+      "res/loading.js"
+    ],
+    "index": 0
+  }
 }
