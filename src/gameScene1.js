@@ -84,34 +84,27 @@ var gameLayer1 = cc.Layer.extend({
 
     share: function(){
         cc.stevelog("share");
-        if(g_env == RUNTIME_ENV.LIEBAO){
-            cc.stevelog("liebao doesn't have share");
-            return true;
-        }
-
         if (pluginManager.sharePlugin) {
             switch (g_env){
+                case RUNTIME_ENV.LIEBAO:
+                    cc.stevelog("liebao doesn't have share");
+                    return true;
+                    break;
                 case RUNTIME_ENV.TENCENT:
                 case RUNTIME_ENV.WANBA:
-                    
                     var info = {
                         // 分享标题
                         title: "hello runtime", 
                         titleUrl: "http://game.html5.qq.com/h5Detail.html?gameId=2466856218", //
-
                         // 分享此内容的来源
                         site: "hello runtime", 
                         siteUrl: "http://game.html5.qq.com/h5Detail.html?gameId=2466856218",
-
                         // 分享的文本
                         text: "hello runtime", 
-
                         // 用户对这条分享的评论
                         comment: "无",  
-
                         // 描述
                         description: "hello runtime",
-
                         imageTitle: "hello runtime",
                         imageUrl: "http://res.imtt.qq.com/game_list/cocos.jpg"
                     };
@@ -147,23 +140,96 @@ var gameLayer1 = cc.Layer.extend({
                         break;
                 }
             }.bind(this));
+        }else{
+            cc.stevelog("no share plugin");
         }
     },
 
     send2Desk: function(){
         cc.stevelog("send2Desk");
+        switch (g_env){
+            case RUNTIME_ENV.TENCENT:
+            case RUNTIME_ENV.BAIDU:
+            case RUNTIME_ENV.WANBA:
+                var param = {
+                    "ext": ""
+                };
+                break;
+            case RUNTIME_ENV.LIEBAO:
+                var param = {
+                    "title": "hello runtime",
+                    "detailUrl": "http://192.168.31.166:8888/index_liebao.html",
+                    "picUrl": "http://192.168.31.166:8888/icon.png"
+                };
+                break;
+        }
+
+        pluginManager.sendToDesktop(param, function (plugin, code, msg) {
+            if (code === UserActionResultCode.kSendToDesktopSuccess) {
+                cc.stevelog("发送桌面快捷方式成功")
+            } else if (code === UserActionResultCode.kSendToDesktopFail) {
+                cc.stevelog("发送桌面快捷方式失败")
+            }
+        }.bind(this));
     },
 
     friends: function(){
-        cc.stevelog("friends");
+        cc.stevelog("get friends list");
+        pluginManager.getFriendsList(function (ret, msg) {
+            switch(ret){
+                case SocialRetCode.kSocialGetFriendsInfoSuccess:
+                    var obj = JSON.parse(msg);
+                    var friendList = obj.friends;
+                    cc.stevelog(msg);
+//                    if (false && friendList) {
+//                        // TODO:由于没有服务端，所以只能使用模拟数据进行加载，真实接入的时候，请在用户登录游戏的时候，保存 qbopenid 和 iconURL 到服务端，获取好友的时候，进行id匹配查询
+//                        var friendsInfo = [];
+ //                       for (var i = 0; i < friendList.length; i++) {
+  //                          var item = {
+   //                             iconUrl: this.picList[i % 10],
+    //                            nickName: "CososRuntime" + i
+     //                       };
+      //                      friendsInfo.push(item);
+       //                 }
+        //                var friendList = new ItemList("friends", friendsInfo);
+         //               this.infoLayer.removeAllChildren();
+          //              this.infoLayer.addChild(friendList);
+           //         }
+                    break;
+                case SocialRetCode.kSocialGetFriendsInfoFail:
+                    cc.stevelog("获取好友信息失败"); break;
+                case SocialRetCode.kSocialGetFriendsInfoCancel:
+                    cc.stevelog("获取好友信息被取消"); break;
+                case SocialRetCode.kSocialGetFriendsInfoNeedLoginAgain:
+                    cc.stevelog("需要重新登录"); break;
+                default :
+                    cc.stevelog("未知返回码"); break;
+            }
+        }.bind(this));
     },
     
     openForum: function(){
         cc.stevelog("openForum");
+        switch(g_env){
+            case RUNTIME_ENV.TENCENT:
+                pluginManager.openTopicCircle();
+                break;
+            default:
+                cc.stevelog("no forum system");
+                break;
+        }
     },
 
     showAds: function(){
         cc.stevelog("showAds");
+        switch(g_env){
+            case RUNTIME_ENV.LIEBAO:
+                pluginManager.showAds();
+                break;
+            default:
+                cc.stevelog("no ads system");
+                break;
+        }
     },
 
     back: function () {

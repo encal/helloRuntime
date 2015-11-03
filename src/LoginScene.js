@@ -281,6 +281,7 @@ var LoginLayer = cc.Layer.extend({
                             "refreshToken": msgObj["refreshToken"],
                             "loginType": msgObj["loginType"]
                         });
+                        // TODO: 腾讯用户登录游戏, CP 要保存 qbopenid 和 iconURL 到服务端以使用朋友圈功能
                         break;
                     case RUNTIME_ENV.BAIDU:
                     case RUNTIME_ENV.WANBA:
@@ -288,10 +289,9 @@ var LoginLayer = cc.Layer.extend({
                         break;
                 }
 
-
-                // TODO: 由于腾讯只有在登录的时候会返回用户信息，在refreshtoken的时候是不会返回用户信息的
-                //       所以登录完成的时候需要保存用户信息
+                // 登录完成, 保存用户信息
                 cc.sys.localStorage.setItem("userInfo", msg);
+
 
                 this.showGameEntry();
                 break;
