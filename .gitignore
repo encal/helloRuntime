@@ -6,3 +6,5 @@ frameworks/
 #
 *.swp
 .crt_rc
+*.pyc
+*.db
