@@ -5,6 +5,7 @@
 var gameLayer1 = cc.Layer.extend({
     sprite:null,
     winSize:cc.winSize,
+    userList:null,
 
     ctor:function () {
         this._super();
@@ -17,6 +18,11 @@ var gameLayer1 = cc.Layer.extend({
         this.addChild(label, 5);
 
         this.initFunctionList();
+
+        this.infoLayer = new cc.Layer();
+        this.addChild(this.infoLayer);
+        this.getUserList();
+
         return true;
     },
 
@@ -24,7 +30,7 @@ var gameLayer1 = cc.Layer.extend({
         var functionList = [];
 
         var payLabel = new cc.LabelTTF("支付", "Arial", 30);
-        var payItem = new cc.MenuItemLabel( payLabel, this.pay, this );
+        var payItem = new cc.MenuItemLabel( payLabel, this.showPayList, this );
         payItem.setTag(SDKFunctionTYPES.PAY);
 
         var shareLabel = new cc.LabelTTF("分享", "Arial", 30);
@@ -78,8 +84,24 @@ var gameLayer1 = cc.Layer.extend({
         this.addChild(menu);
     },
 
-    pay: function(){
-        cc.stevelog("pay");
+    getUserList: function(){
+        cc.stevelog("getUserList");
+        // 出于便捷获取所有用户, 用于展示好友, 真实游戏需要先请求好友再来下载对应用户数据
+        var req = cc.loader.getXMLHttpRequest();
+        req.open("GET", GAME_SERVER_ADDRESS + "/get_user_list");
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && (req.status >= 200 && req.status <= 207)) {
+                var httpStatus = req.statusText;
+                var response = req.responseText;
+                cc.log("getUserList success: response:" + response);
+
+                // 保存用户信息
+                userList = JSON.parse(response);
+            } else {
+                cc.log("getUserList failure, status: " + req.status);
+            }
+        }.bind(this);
+        req.send();
     },
 
     share: function(){
@@ -89,20 +111,20 @@ var gameLayer1 = cc.Layer.extend({
                 case RUNTIME_ENV.LIEBAO:
                     cc.stevelog("liebao doesn't have share");
                     return true;
-                    break;
+                    //break;
                 case RUNTIME_ENV.TENCENT:
                 case RUNTIME_ENV.WANBA:
                     var info = {
                         // 分享标题
-                        title: "hello runtime", 
+                        title: "hello runtime",
                         titleUrl: "http://game.html5.qq.com/h5Detail.html?gameId=2466856218", //
                         // 分享此内容的来源
-                        site: "hello runtime", 
+                        site: "hello runtime",
                         siteUrl: "http://game.html5.qq.com/h5Detail.html?gameId=2466856218",
                         // 分享的文本
-                        text: "hello runtime", 
+                        text: "hello runtime",
                         // 用户对这条分享的评论
-                        comment: "无",  
+                        comment: "无",
                         // 描述
                         description: "hello runtime",
                         imageTitle: "hello runtime",
@@ -147,16 +169,17 @@ var gameLayer1 = cc.Layer.extend({
 
     send2Desk: function(){
         cc.stevelog("send2Desk");
+        param = {};
         switch (g_env){
             case RUNTIME_ENV.TENCENT:
             case RUNTIME_ENV.BAIDU:
             case RUNTIME_ENV.WANBA:
-                var param = {
+                param = {
                     "ext": ""
                 };
                 break;
             case RUNTIME_ENV.LIEBAO:
-                var param = {
+                param = {
                     "title": "hello runtime",
                     "detailUrl": "http://192.168.31.166:8888/index_liebao.html",
                     "picUrl": "http://192.168.31.166:8888/icon.png"
@@ -166,11 +189,26 @@ var gameLayer1 = cc.Layer.extend({
 
         pluginManager.sendToDesktop(param, function (plugin, code, msg) {
             if (code === UserActionResultCode.kSendToDesktopSuccess) {
-                cc.stevelog("发送桌面快捷方式成功")
+                cc.stevelog("发送桌面快捷方式成功");
             } else if (code === UserActionResultCode.kSendToDesktopFail) {
-                cc.stevelog("发送桌面快捷方式失败")
+                cc.stevelog("发送桌面快捷方式失败");
             }
         }.bind(this));
+    },
+
+    showPayList: function(){
+        cc.stevelog("showPayList");
+        var goodsInfo = [];
+        for (var i = 0; i < 5; i++) {
+            var item = {
+                iconUrl: this.picList[i % 10],
+                payInfo: (i + 1) * 10
+            };
+            goodsInfo.push(item);
+        }
+        var goodList = new ItemList("pay", goodsInfo);
+        this.infoLayer.removeAllChildren();
+        this.infoLayer.addChild(goodList);
     },
 
     friends: function(){
@@ -178,23 +216,29 @@ var gameLayer1 = cc.Layer.extend({
         pluginManager.getFriendsList(function (ret, msg) {
             switch(ret){
                 case SocialRetCode.kSocialGetFriendsInfoSuccess:
-                    var obj = JSON.parse(msg);
-                    var friendList = obj.friends;
+                    cc.stevelog("获取好友信息成功");
                     cc.stevelog(msg);
-//                    if (false && friendList) {
-//                        // TODO:由于没有服务端，所以只能使用模拟数据进行加载，真实接入的时候，请在用户登录游戏的时候，保存 qbopenid 和 iconURL 到服务端，获取好友的时候，进行id匹配查询
-//                        var friendsInfo = [];
- //                       for (var i = 0; i < friendList.length; i++) {
-  //                          var item = {
-   //                             iconUrl: this.picList[i % 10],
-    //                            nickName: "CososRuntime" + i
-     //                       };
-      //                      friendsInfo.push(item);
-       //                 }
-        //                var friendList = new ItemList("friends", friendsInfo);
-         //               this.infoLayer.removeAllChildren();
-          //              this.infoLayer.addChild(friendList);
-           //         }
+
+                    // TODO: Demo 直接请求所有的用户列表来展示,
+                    // CP 应根据好友信息去服务端取得这些信息后展示
+                    // var friend_qbopenids = JSON.parse(msg).friends;
+                    // get friends info list from server
+
+                    var friends = userList;
+
+                    var friendsInfo = [];
+                    for(var friend_id in friends){
+                        var item = {
+                            iconUrl: friends[friend_id]["avatar_url"],
+                            nickName: friends[friend_id]["nick_name"]
+                        };
+
+                        friendsInfo.push(item);
+                    }
+                    cc.stevelog(JSON.stringify(friendsInfo));
+                    var friendList = new ItemList("friends", friendsInfo);
+                    this.infoLayer.removeAllChildren();
+                    this.infoLayer.addChild(friendList);
                     break;
                 case SocialRetCode.kSocialGetFriendsInfoFail:
                     cc.stevelog("获取好友信息失败"); break;
@@ -207,7 +251,7 @@ var gameLayer1 = cc.Layer.extend({
             }
         }.bind(this));
     },
-    
+
     openForum: function(){
         cc.stevelog("openForum");
         switch(g_env){
@@ -245,3 +289,4 @@ var gameScene1 = cc.Scene.extend({
         this.addChild(layer);
     }
 });
+

@@ -2,6 +2,8 @@
  * Created by stevejokes on 10/23/15.
  */
 
+GAME_SERVER_ADDRESS = "http://192.168.31.166:5555"
+
 LoginActionTYPES={
     DIRECT:100,
     QQ:101,
@@ -39,7 +41,7 @@ RUNTIME_ENV ={
 };
 
 if (cc.runtime && cc.runtime.config){
-    if(cc.runtime.config["channel_id"] in {"100115":"", "100125":"", "100117":"", "100206":""} ){
+    if(cc.runtime.config["channel_id"] in {"100115":"", "100125":"", "100117":"", "100206":""}){
         switch(cc.runtime.config["channel_id"]){
             case "100115":
                 g_env = RUNTIME_ENV.TENCENT; break;

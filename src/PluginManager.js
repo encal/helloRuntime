@@ -15,6 +15,7 @@ var PluginManager = cc.Class.extend({
     iapCallback: null,
     socialCallback: null,
     shareCallback: null,
+    callbackList: null,
 
     ctor: function () {
         cc.log("===> PluginManager ctor");
@@ -43,8 +44,14 @@ var PluginManager = cc.Class.extend({
         //获取广告插件
         this.adsPlugn = this.anySDKAgent.getAdsPlugin();
 
-        if (this.userPlugin)
-            this.userPlugin.setActionListener(this.onUserResult, this);
+        this.callbackList = [];
+
+        if (this.userPlugin){
+            if(g_env == RUNTIME_ENV.LIEBAO)
+                this.userPlugin.setActionListener(this.onLiebaoUserResult, this);
+            else
+                this.userPlugin.setActionListener(this.onUserResult, this);
+        }
 
         if (this.sharePlugin)
             this.sharePlugin.setResultListener(this.onShareResult, this);
@@ -124,6 +131,15 @@ var PluginManager = cc.Class.extend({
                 break;
         }
     },
+
+    /**
+     * 检查登录状态
+     */
+    isLogined: function () {
+        cc.stevelog("******"+this.userPlugin.isLogined());
+        return this.userPlugin.isLogined();
+    },
+
     /**
      * 登录
      * @param param 登录参数
@@ -263,7 +279,6 @@ var PluginManager = cc.Class.extend({
         req.send();
     },
 
-
     /**
      * 获取好友信息
      * @param callback 回调
@@ -292,6 +307,48 @@ var PluginManager = cc.Class.extend({
     },
 
     /**
+     * 扩展接口
+     * @param posId
+     */
+    callFuncWithParam: function (funcName, params, cb, target) {
+        if (this.userPlugin.isFunctionSupported("callThirdPartyFunction") && this.userPlugin.isFunctionSupported(funcName)) {
+            var cbId = Date.now() + "";
+            params.funcName = funcName;
+            params.cbId = cbId;
+            if (cb) {
+                var callback = {
+                    callback: cb,
+                    target: target ? target : null,
+                    funcName: funcName,
+                    cbId: cbId
+                };
+                this.callbackList.push(callback);
+            }
+            this.userPlugin.callFuncWithParam("callThirdPartyFunction", anysdk.PluginParam.create(params));
+        } else {
+            cc.log("Oops, " + funcName + " isn't supported!");
+        }
+    },
+
+    /**
+     * 猎豹登录回调
+     * @param ret
+     * @param msg
+     * @param info
+     */
+    onLiebaoUserResult: function (plugin, ret, msg) {
+        cc.log("onLiebaoUserResult:plugin=" + plugin + " ret=" + ret + ", msg=" + msg);
+        if (ret == 8000) {
+            this.doCallback(ret, msg);
+        } else {
+            if (this.userCallback) {
+                this.userCallback(plugin, ret, msg);
+                this.userCallback = null;
+            }
+        }
+    },
+
+    /**
      * 登录回调
      * @param ret
      * @param msg
@@ -304,8 +361,32 @@ var PluginManager = cc.Class.extend({
             this.userCallback = null;
         }
     },
+
+    doCallback: function (ret, msg) {
+        var message = JSON.parse(msg);
+        var funcName = message.funcName;
+        var cbId = message.cbId;
+        cc.log("do callback message.msg is " + message.msg);
+        for (var i = 0; i < this.callbackList.length; i++) {
+            var callback = this.callbackList[i];
+            if (callback.funcName == funcName && callback.cbId == cbId) {
+                if (callback.target) {
+                    callback.callback.call(callback.target, ret, message.msg);
+                } else {
+                    callback.callback(ret, message.msg);
+                }
+                this.removeCallbackFromList(i);
+                return;
+            }
+        }
+    },
+
+    removeCallbackFromList: function (index) {
+        this.callbackList.splice(index, 1);
+    },
+
     /**
-     * 支付回调
+     * * 支付回调
      * @param ret
      * @param msg
      * @param info
