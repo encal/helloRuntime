@@ -18,6 +18,7 @@
         "src/gameConst.js",
         "src/PluginManager.js",
         "src/utils.js",
+        "src/items.js",
         "src/app.js"
     ]
 }

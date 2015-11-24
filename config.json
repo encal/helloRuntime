@@ -15,7 +15,13 @@
   "runtime_version": "3.3.0.2",
   "security": {
     "password": "unittest",
-    "third_party": {}
+    "third_party": {
+      "liebao":{
+        "clientId": "195745422",
+        "clientSecret": "7EE5C48EB3787173810DB3877FCA0CEF",
+        "redirectUri": "cocoscsdauthcallback://cocoscs"
+      }
+    }
   },
   "version_code": 1,
   "version_name": "1.0.0"

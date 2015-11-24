@@ -1,8 +1,8 @@
 /**
  * Created by stevejokes on 10/23/15.
- */;
+ */
 
-winSize = cc.director.getWinSize()
+winSize = cc.director.getWinSize();
 
 var LoginLayer = cc.Layer.extend({
     sprite:null,
@@ -15,6 +15,23 @@ var LoginLayer = cc.Layer.extend({
         var titleLabel = new cc.LabelTTF("Login", "Arial", 38);
         titleLabel.setPosition( size.width/2, size.height/2 + 200);
         this.addChild(titleLabel, 5);
+
+        if(g_env == RUNTIME_ENV.LIEBAO){
+            cc.stevelog("set liebao short cut");
+            var shortCutInfo = {
+                "Title": "helloRuntime",
+                "DetailUrl": "http://xad.ksmobile.com/dLebVd",
+                "PicUrl": "http://h5res.kx7p.com/ttgcqrt/icon120.png"
+            };
+
+            var param = {
+                "value": JSON.stringify(shortCutInfo)
+            };
+
+            pluginManager.callFuncWithParam("save_shortcut_info", param, function (ret, data) {
+                cc.log("save_shortcut_info" + "返回结果是：" + data);
+            }.bind(this));
+        }
 
         /**
          * - 根据不同的渠道环境启用不同的登录方式
@@ -32,6 +49,12 @@ var LoginLayer = cc.Layer.extend({
                 this.qZoneAutoLogin();
                 break;
             case RUNTIME_ENV.LIEBAO:
+                if(cc.sys.localStorage.getItem("liebaoToken"))
+                    this.liebaoLogin();
+                else
+                    this.showLoginMenu();
+
+                break;
             case RUNTIME_ENV.BAIDU:
             case RUNTIME_ENV.SIMULATE:
                 // 显示登录按钮, 让用户授权登录
@@ -110,9 +133,9 @@ var LoginLayer = cc.Layer.extend({
     getSigInfo: function () {
         cc.stevelog("get sigInfo");
 
-        // TODO: 从 CP 服务器 refreshToken，判断token是否有效
+        // TODO: 获取本地存储的 token 判断token是否有效
         var req = cc.loader.getXMLHttpRequest();
-        req.open("GET", "http://192.168.31.166:5555/x5/get_login_info");
+        req.open("GET", GAME_SERVER_ADDRESS + "/x5/get_login_info");
         req.onreadystatechange = function () {
             if (req.readyState == 4 && (req.status >= 200 && req.status <= 207)) {
                 var httpStatus = req.statusText;
@@ -207,7 +230,7 @@ var LoginLayer = cc.Layer.extend({
     },
 
     baiduLogin: function () {
-        cc.stevelog("baidu login")
+        cc.stevelog("baidu login");
         var param = {
             "forceLogin": "false",  // 是否需要每次重新登录
             "confirmLogin": "false" // 是否让用户选择继续使用该账号或切换账户
@@ -271,17 +294,49 @@ var LoginLayer = cc.Layer.extend({
 
                 switch (g_env){
                     case RUNTIME_ENV.LIEBAO:
-                        // liebao save token in local storage
+                        // 本地保存 Token 信息
                         cc.sys.localStorage.setItem("liebaoToken",msgObj.cp.token);
                         break;
                     case RUNTIME_ENV.TENCENT:
-                        // tencent save token in anysdk plugin
+                        // 本地保存 Token 信息
                         pluginManager.x5_setToken({
                             "qbopenid": msgObj["qbopenid"],
                             "refreshToken": msgObj["refreshToken"],
                             "loginType": msgObj["loginType"]
                         });
+
+                        /*msg = {
+                            "avatarurl": "http://q4.qlogo.cn/g?b=qq&k=ewymv77fkeibnfnobxasiccw&s=640&t=1415510615",
+                            "expire": 7200,
+                            "logintype": "qq",
+                            "msg": "ok",
+                            "nickname": "\u4e00\u679a\u4ee3\u7801\u72d7",
+                            "qbopenid": "io3moskfrm7na2ivhajxweqgz1go5iuuds5_zdpukdbbs1uvhmqg7g",
+                            "qbopenkey": "vbnbes2jlyqeytzfdcbbrjgpplwwn2_wdagtp7i_t7bxjtfkdrlidwyq6xdsm81iuqkrwfpw_ht_zyqrtlnoe11ooezkynpqb3upmu2tbmtpw9glqlyluez-yip1t0hhy8e0ngn44jy",
+                            "refreshtoken": "p6twbmwpwyflccy7tfziynoeupmkw_8bjxwzrvxbmihzdnor8rl59jykcti0ka52hykylctcg8cczn20fiproikto1gwiunhvuzlshgtvnp776jzpjvgfg",
+                            "result": 0
+                        }*/
+
+
                         // TODO: 腾讯用户登录游戏, CP 要保存 qbopenid 和 iconURL 到服务端以使用朋友圈功能
+                        var req = cc.loader.getXMLHttpRequest();
+
+                        u_qbopenid = encodeURIComponent(msgObj["qbopenid"]);
+                        u_avatarUrl= encodeURIComponent(msgObj["avatarUrl"]);
+                        u_nickName = encodeURIComponent(msgObj["nickName"]);
+                        arg = "qbopenid="+u_qbopenid+"&avatarUrl="+u_avatarUrl+"&nickName="+u_nickName;
+
+                        req.open("GET", GAME_SERVER_ADDRESS + "/x5/save_user_info" + "?" + arg);
+                        req.onreadystatechange = function () {
+                            if (req.readyState == 4 && (req.status >= 200 && req.status <= 207)) {
+                                var httpStatus = req.statusText;
+                                var response = req.responseText;
+                                cc.log("saveUserInfo success: response:" + response);
+                            } else {
+                                cc.log("saveUserInfo failure, status: " + req.status);
+                            }
+                        }.bind(this);
+                        req.send();
                         break;
                     case RUNTIME_ENV.BAIDU:
                     case RUNTIME_ENV.WANBA:
@@ -327,7 +382,7 @@ var LoginLayer = cc.Layer.extend({
                 cc.stevelog("发送桌面快捷方式失败消");
                 break;
             default :
-                cc.stevelog("未知返回码:" + code)
+                cc.stevelog("未知返回码:" + code);
         }
     },
 
