@@ -28,9 +28,18 @@ def x5_get_login_info():
 ############## gameApi ################
 @app.route("/x5/save_user_info", methods=['GET'])
 def x5_save_user_info():
-    request.args.get("a1alsdfj") # TODO
-    gameApi.save_user_info()
-    return ""
+    args = request.args
+
+    qbopenid = args.get('qbopenid')
+    nick_name = args.get('nickName')
+    avatar_url = args.get('avatarUrl')
+
+    return gameApi.save_user_info(qbopenid, nick_name, avatar_url)
+
+@app.route("/get_user_list", methods=['GET'])
+def get_user_list():
+    return gameApi.get_user_list()
+
 
 #######################################
 

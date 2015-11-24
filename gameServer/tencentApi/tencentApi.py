@@ -131,7 +131,7 @@ def x5_price_response(obj):
 
     if g_is_test is True:
         # 用此测试数据返回的结果为: 批价响应数据:{"rspsig": "eZR%2BhSmVn07Ysswa6GyMM%2FWjrI8%3D", "data": "pwSvgzN0vJieacYw7z8SBLP8INLmWY%2Bq2o74E0%2BBEAYi5OhHMq9Ndo5c1EEa9RBHpzjxGKRsbfIt10acMiT%2Bv7k1VoEukIaJPa1T49R0KN54oRW436bHJl%2BSsngqvSuC"}
-        data = "{\"msg\": \"success\", \"nonce\": \"NphsHyYDljzEVLn\", \"time\": 1430404481, \"ret\": 0, \"payamount\": 10}"
+        data = "{\"msg\": \"succesDWc7yHJvEwTL471jnljmcw%2Bbu8s%3Ds\", \"nonce\": \"NphsHyYDljzEVLn\", \"time\": 1430404481, \"ret\": 0, \"payamount\": 10}"
 
     cclog("==> obj: " + data)
     data = x5_encrypt(data)
@@ -256,10 +256,10 @@ if __name__ == "__main__":
     g_is_test = True
 
     # 验证批价回调
-    x5_price(None)
+    #x5_price(None)
 
     #
-    # x5_unquote(x5_quote(" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~\n\b\t\f\r111"))
+    x5_unquote(x5_quote(" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~\n\b\t\f\r111"))
 
     # 执行此函数, 验证签名算法实现是否成功
     # x5_is_correct_of_price_sign("K0hNxW046polkGzuQ4j7JLOyH%2B2SkMQvuEZ28ny11SFgTjQkmWhjX9AHN0nbPD0WxB8Zkj14%2B2yIXEkcp4%2FdGKT5gaImDUUIXDkF7WVVQragsQALRTrx0z0wdkQiqkVFdokPtBpJcotIeAZBl1r1SEHxAPLvLbGeKnJxjJawK98tFMxhtaCspaPfTlLXbd3Sfi436fr%2BupHmNtiHw2NfE%2FKiKtj2zkz8k1pV4oLf%2Fs1m5dEJa2d2b2m%2FQ4scYPGFyM4eMPeOHHqtpUDS2zSYoA%3D%3D", "GSOnCNbncMK9ySNTx5cfVkNAwoU%3D")

@@ -5,9 +5,13 @@
 # 本例使用的 appkey, appid, transferKey 只是 runtime demo 用到的游戏参数
 # cp需要自己替换为腾讯提供的值
 
-X5_APPID = "2466856218" # 腾讯提供的游戏唯一ID
-X5_APP_KEY = "PoltShYwh0uunguq" # [cp身份秘钥], 用于签名
-X5_TRANSFER_KEY = "vS99f24SlVeWmmrg" # [cp传输密钥], 用于加密解密传输的data数据
+#X5_APPID = "2466856218" # 腾讯提供的游戏唯一ID
+#X5_APP_KEY = "PoltShYwh0uunguq" # [cp身份秘钥], 用于签名
+#X5_TRANSFER_KEY = "vS99f24SlVeWmmrg" # [cp传输密钥], 用于加密解密传输的data数据
+
+X5_APPID = "7497033494" # 腾讯提供的游戏唯一ID
+X5_APP_KEY = "FVazPLJ7SoVsjWpD" # [cp身份秘钥], 用于签名
+X5_TRANSFER_KEY = "UyzSYXsvxfmrttCL" # [cp传输密钥], 用于加密解密传输的data数据
 
 # GET + 批价回调URL去掉前缀 + 链接本身参数
 PRICE_URL = ["GET", "/x5/price/", ""]
